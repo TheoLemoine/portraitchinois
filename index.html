@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Portrait Chinois</title>
+    <link rel="icon" type="image/png" href="Favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:700|Montserrat:300" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+            <!--ici tout les objet concernés par l'effet de paralax-->
+
+    <!--les elements du fond-->
+    <img src="Paralax/CielBack.svg" alt="" class="background ciel">
+    <img src="Paralax/Fond.svg" alt="" class="background fond">
+    <img src="Paralax/Marche1.svg" alt="" class="background sol1">
+    <img src="Paralax/Marche2.svg" alt="" class="background sol2">
+
+    <!--les deux yeux du renard, qui suivent la souris-->
+    <div class="contain">
+        <div class="eye"> </div>
+    </div>
+    <div class="contain">
+        <div class="eye"> </div>
+    </div>
+
+    <!--l'animation de 'the dark side of the moon'-->
+    <div class="pinkFloyd"></div>
+ 
+
+           
+            <!--ici tout les elements non concernées par les déplacements-->
+
+    <!--le personnage, le fond se déplace, mais pas lui-->
+    <div id="pers" class="pers"></div>
+
+    <!--le texte, changeant lors du déplacement, voir le fichier text.js pour tous les voir-->
+    <h1>Si j'étais <span>un portait chinois,</span> <br> Je serais <span> celui ci</span></h1>
+    <p>utillisez les touches <b>Q</b> et <b>D</b> pour vous deplacer, et sur <b>espace</b> pour sauter</p>
+
+    <img src="FaviconSVG.svg" alt="théo lemoine" class="LogoFin" >
+           
+            <!--ici tout les scripts-->
+    <script src="JS/deplacement.js"></script>
+    <script src="JS/Text.js"></script>
+    <script src="JS/eyes.js"></script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+html {
+    overflow: hidden;
+    /* sinon, on pourait aller a l'autre bout de l'image en scrollant verticallement, 
+    ce qui ne marcherait meme pas car l'effet de paralax fait que les images n'ont pas la meme longueur*/
+}
+
+body,
+html {
+    margin: 0;
+}
+
+.background {
+    position: absolute;
+    /* le positionnement absolute permet ensuite de modifier la propriété left en js pour faire 'manuellement' un effet de paralax */
+    height: 100vh;
+    /* les images prennent 100% de la hauteur de l'écrant, leur taille est faite pour que leur largeur tombe parfaitement en fonction de la paralax */
+}
+
+.ciel {
+    z-index: 0;
+    left: 0px;
+}
+
+.fond {
+    z-index: 1;
+    left: 0px;
+}
+
+.sol1 {
+    z-index: 2;
+    left: 0px;
+}
+
+.sol2 { /* l'image du sol étant trop grande, j'ai du la couper en deux */
+    z-index: 2;
+    left: 1230vh;
+}
+
+@-webkit-keyframes jump {
+    0% {
+        margin-bottom: 0
+    }
+    100% {
+        margin-bottom: 10vh
+    }
+}
+
+@keyframes jump {
+    0% {
+        margin-bottom: 0
+    }
+    100% {
+        margin-bottom: 10vh
+    }
+}
+
+@-webkit-keyframes fall {
+    0% {
+        margin-bottom: 10vh
+    }
+    100% {
+        margin-bottom: 0vh
+    }
+}
+
+@keyframes fall {
+    0% {
+        margin-bottom: 10vh
+    }
+    100% {
+        margin-bottom: 0vh
+    }
+}
+
+/* une animation avec des sprites */
+@-webkit-keyframes run {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: 0% 100%
+    }
+}
+
+@keyframes run {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: 0% 100%
+    }
+}
+
+.pers {
+    z-index: 3;
+    display: block;
+    position: absolute;
+    width: 240px;
+    height: 311px;
+    left: 20%;
+    bottom: 28vh;
+    -webkit-animation: none;
+    animation: none;
+
+    background: url(Sprites/Frames.png);
+    background-size: cover;
+    background-position: 0% 0%;
+}
+
+.jump {
+    -webkit-animation: jump 0.7s cubic-bezier(.23, 1.14, .81, .99), fall 0.7s cubic-bezier(.58, .01, .79, .32) 0.7s;
+    animation: jump 0.7s cubic-bezier(.23, 1.14, .81, .99), fall 0.7s cubic-bezier(.58, .01, .79, .32) 0.7s;
+    --currentAnim: jump 0.7s cubic-bezier(.23, 1.14, .81, .99), fall 0.7s cubic-bezier(.58, .01, .79, .32) 0.7s, ;
+}
+
+.run {
+    -webkit-animation: var(--currentAnim, ) run 0.8s steps(17) infinite;
+    animation: var(--currentAnim, ) run 0.8s steps(17) infinite;
+}
+
+/* 
+        
+        I'm a hecking genius :D ,
+        si la classe jump est appliqué a l'objet, alors la variable (contanant la valeur de l'animation) sera définie. 
+        Si la classe run est appelé en plus, alors la valeur de la propriété de l'animation run sera rajouté a la liste des animations en cours (contenu dans la variable) 
+        ce qui évite que l'animation de jump soit arrété par le déclenchement de celle de run, car sinon elle réécrirait la propriété en n'y mettant que l'animation run 
+        si la classe saut n'est pas active, alors le propriété n'est pas définie et la 'fonction' var() ne mettra rien
+        
+        en gros, ca me permet de rajouter une animation a celles en cours sur un objet, et ce sans connaitre au préalable les dites animation en cours.
+        ici, ca permet juste que le personnage saute et marche en meme temps
+        
+        */
+
+.eye {
+    width: 2.5vh;
+    height: 2.5vh;
+
+    position: relative;
+    z-index: -1;
+
+    background-image: url(Paralax/eye-04.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.contain:nth-child(5) .eye{
+    left: 186vh; 
+    top: 24.8vh;
+}
+.contain:nth-child(6) .eye{
+    left: 195vh; 
+    top: 24.8vh;
+}
+
+.contain {
+    position: absolute;
+}
+
+h1 {
+    position: absolute;
+    left: 5vh;
+    top: -4vh;
+
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9vh;
+
+    z-index: 3;
+}
+
+span {
+    -webkit-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+}
+
+p {
+    position: absolute;
+    left: 5vh;
+    bottom: 0vh;
+
+    width: 95vw;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3vh;
+
+    z-index: 3;
+
+    -webkit-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+
+    color: #ccc9c9;
+}
+
+/* une autre animation avec des sprites */
+@-webkit-keyframes pinkfloyd {
+    from {
+        background-position: 0% 0.2%;
+    }
+    to {
+        background-position: 0% 99.8%;
+    }
+}
+
+@keyframes pinkfloyd {
+    from {
+        background-position: 0% 0.2%;
+    }
+    to {
+        background-position: 0% 99.8%;
+    }
+}
+
+.pinkFloyd {
+    position: absolute;
+    left: 390vh;
+    top: -3vh;
+    height: 50vh;
+    width: 80vh;
+    background: url(Sprites/PFspriteAnim.png) no-repeat;
+    background-position: 0% 0.2%;
+    background-size: cover;
+
+}
+
+/* la classe est ajouté en JS */
+.pinkFloydAnimate {
+    -webkit-animation: pinkfloyd 2.5s steps(41) forwards;
+    animation: pinkfloyd 2.5s steps(41) forwards;
+}
+
+.LogoFin{
+    position: absolute;
+    right: 5vw;
+    top: 5vh;
+    
+    height: 18vh;
+    
+    opacity: 0;
+    -webkit-transition: opacity 2.2s linear;
+    transition: opacity 2.2s linear;
+}
